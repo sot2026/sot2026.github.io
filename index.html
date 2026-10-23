@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Опрос Форума СОТ — 2026</title>
 <meta name="description" content="Опрос педагогов о конкурсах, идеях и профессиональном сообществе. Около 3 минут, в конце — сертификат участника.">
-<meta name="theme-color" content="#FFD23F">
+<meta name="theme-color" content="#FFEF7A">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Опрос Форума СОТ — 2026">
 <meta property="og:description" content="Опрос педагогов о конкурсах, идеях и профессиональном сообществе. Около 3 минут, в конце — сертификат участника.">
@@ -20,8 +20,8 @@
 <style>
 /* Layout: poster-style survey. Sticky header with block chips on top, one question per screen in a chunky card, tap an answer and it turns the page itself. Yellow, ink and orange, like the СОТ site. */
 :root{
-  --bg:#FFD23F; --surface:#FFFFFF; --ink:#15120A; --muted:#4D4720; --bd:#15120A; --sh:#15120A;
-  --pick:#FF8A3D; --pick-ink:#15120A; --hot:#FF4F1A; --ok:#1F9D63; --btn:#15120A; --btn-ink:#FFD23F; --soft:#FFF1B8; --danger:#C0210F;
+  --bg:#FFEF7A; --surface:#FFFFFF; --ink:#5A2A17; --muted:#7D4F35; --bd:#5A2A17; --sh:#E8B93A;
+  --pick:#FFC93C; --pick-ink:#5A2A17; --hot:#F7941D; --ok:#4E9A5B; --btn:#5A2A17; --btn-ink:#FFEF7A; --soft:#FFF8C9; --danger:#D2483A;
   --f-display:"Unbounded","Onest",system-ui,sans-serif; --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 @media (prefers-color-scheme: dark){
@@ -301,7 +301,7 @@ function updateNav(){
 }
 function scrollTop(){try{window.scrollTo({top:0,behavior:reduce()?"auto":"smooth"});}catch(e){window.scrollTo(0,0);}}
 function confetti(){
-  if(reduce())return;var fx=$("fx"),cols=["#FFD23F","#FF4F1A","#15120A","#1F9D63","#FFFFFF","#FF8A3D"];fx.innerHTML="";
+  if(reduce())return;var fx=$("fx"),cols=["#FFC93C","#F7941D","#5A2A17","#1F9D63","#FFFFFF","#FFB86B"];fx.innerHTML="";
   for(var k=0;k<48;k++){var s=document.createElement("i"),z=7+Math.random()*9;
     s.style.left=(Math.random()*100)+"vw";s.style.background=cols[k%cols.length];s.style.width=z+"px";s.style.height=z+"px";
     s.style.setProperty("--dx",(Math.random()*240-120)+"px");s.style.setProperty("--r",(Math.random()*900-450)+"deg");s.style.animationDelay=(Math.random()*.3)+"s";fx.appendChild(s);}
