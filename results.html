@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Результаты опроса СОТ</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%27-26%20-26%2056%2056%27%3E%3Cpolygon%20points%3D%270%2C-22%2019.1%2C-11%2019.1%2C11%200%2C22%20-19.1%2C11%20-19.1%2C-11%27%20fill%3D%27%23FFB400%27%20stroke%3D%27%2315120A%27%20stroke-width%3D%273%27%2F%3E%3C%2Fsvg%3E">
+<style>input[type=password]{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:2.5px solid var(--bd);border-radius:12px;padding:12px 14px;margin:14px 0 6px}input[type=password]:focus{outline:3px solid var(--hot);outline-offset:2px}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<style>
+/* Layout: poster-style survey. Sticky header with block chips on top, one question per screen in a chunky card, tap an answer and it turns the page itself. Yellow, ink and orange, like the СОТ site. */
+:root{
+  --bg:#FFD23F; --surface:#FFFFFF; --ink:#15120A; --muted:#4D4720; --bd:#15120A; --sh:#15120A;
+  --pick:#FF8A3D; --pick-ink:#15120A; --hot:#FF4F1A; --ok:#1F9D63; --btn:#15120A; --btn-ink:#FFD23F; --soft:#FFF1B8; --danger:#C0210F;
+  --f-display:"Unbounded","Onest",system-ui,sans-serif; --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15120A; --surface:#221D0F; --ink:#FFF3CC; --muted:#CDBF8C; --bd:#F2C94C; --sh:#7A5C0B;
+    --pick:#FFB400; --pick-ink:#15120A; --hot:#FF7A3D; --ok:#4BD08B; --btn:#FFD23F; --btn-ink:#15120A; --soft:#2F2711; --danger:#FF8A80; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15120A; --surface:#221D0F; --ink:#FFF3CC; --muted:#CDBF8C; --bd:#F2C94C; --sh:#7A5C0B;
+  --pick:#FFB400; --pick-ink:#15120A; --hot:#FF7A3D; --ok:#4BD08B; --btn:#FFD23F; --btn-ink:#15120A; --soft:#2F2711; --danger:#FF8A80; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.wrap{max-width:760px;margin:0 auto}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+
+/* header */
+.top{padding:12px 0 6px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.logo{flex:none;width:54px;height:54px;overflow:visible}
+.bt{min-width:0;flex:1}
+.bt h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.2}
+.bt p{margin:0;font-size:12.5px;color:var(--muted)}
+.stepper{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:2px 3px 6px 1px}
+.chip{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"n c" "t t";align-items:center;gap:1px 6px;min-width:0;padding:7px 10px 8px;background:var(--surface);border:2.5px solid var(--bd);border-radius:12px;cursor:pointer;text-align:left;box-shadow:2px 2px 0 var(--sh)}
+.chip .n{grid-area:n;font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.2}
+.chip .c{grid-area:c;justify-self:end;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip .t{grid-area:t;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.on{background:var(--btn);color:var(--btn-ink)}
+.chip.on .c{color:var(--btn-ink)}
+.chip.done .n{color:var(--ok)}
+.chip.on.done .n{color:var(--btn-ink)}
+#banner{margin-top:8px;background:var(--surface);border:2px dashed var(--bd);border-radius:10px;padding:8px 12px;font-size:13px}
+
+/* screens */
+main{padding:18px 0 28px;min-height:60vh}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px}
+.sticker{display:inline-block;background:var(--hot);color:#fff;border:2.5px solid var(--bd);border-radius:8px;padding:3px 10px;font-family:var(--f-display);font-weight:700;font-size:12px;transform:rotate(-2deg);box-shadow:2px 2px 0 var(--sh)}
+:root[data-theme="dark"] .sticker{color:#15120A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sticker{color:#15120A}}
+.blk{font-size:13px;font-weight:600;color:var(--muted)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.dot{width:26px;height:10px;padding:0;border:2px solid var(--bd);border-radius:6px;background:var(--surface);cursor:pointer}
+.dot.ok{background:var(--ink)}
+.dot.on{background:var(--hot);width:40px}
+.card{background:var(--surface);border:2.5px solid var(--bd);border-radius:20px;box-shadow:6px 6px 0 var(--sh);padding:22px 20px}
+.card.pop{animation:pop .32s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(16px) rotate(-.8deg)}to{opacity:1;transform:none}}
+.qt{margin:0 0 6px;font-size:clamp(19px,4.6vw,24px);line-height:1.3;font-weight:700;text-wrap:pretty}
+.hint{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.opts{display:grid;gap:10px}
+.opt{position:relative;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface);border:2.5px solid var(--bd);border-radius:14px;cursor:pointer;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s,background .12s}
+.opt:hover{background:var(--soft)}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.mark{flex:none;width:34px;height:34px;border:2.5px solid var(--bd);border-radius:9px;display:grid;place-items:center;background:var(--bg);font-family:var(--f-display);font-weight:700;font-size:13px}
+.otxt{min-width:0;overflow-wrap:anywhere;padding-top:3px;font-weight:500}
+.opt.sel{background:var(--pick);color:var(--pick-ink);transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
+.opt.sel .mark{background:var(--surface);color:var(--ink)}
+.opt.sel .mark b{display:none}
+.opt.sel .mark::after{content:"";width:8px;height:15px;border:solid var(--ink);border-width:0 3.5px 3.5px 0;transform:translateY(-2px) rotate(45deg)}
+.opt:focus-within{outline:3px solid var(--hot);outline-offset:2px}
+.opt.off{opacity:.45;cursor:not-allowed}
+.other{margin-top:10px}
+input[type=text],input[type=email],textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:2.5px solid var(--bd);border-radius:12px;padding:12px 14px}
+textarea{min-height:150px;resize:vertical}
+input[type=text]:focus,input[type=email]:focus,textarea:focus,select:focus{outline:3px solid var(--hot);outline-offset:2px}
+.tip{margin-top:12px;font-size:13px;color:var(--muted)}
+
+/* buttons + bottom bar */
+.btn{border:2.5px solid var(--bd);background:var(--surface);color:var(--ink);border-radius:14px;padding:12px 20px;font-weight:700;cursor:pointer;min-height:50px;box-shadow:3px 3px 0 var(--sh);transition:transform .1s,box-shadow .1s}
+.btn:active:not([disabled]){transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
+.btn.pri{background:var(--btn);color:var(--btn-ink)}
+.btn.big{font-family:var(--f-display);font-size:15px;padding:16px 26px}
+.btn.sm{min-height:40px;padding:7px 14px;font-size:14px}
+.btn[disabled]{opacity:.55;cursor:wait}
+.nav{margin-top:18px;display:flex;gap:10px}
+.nav .btn.pri{flex:1}
+.nav .back{flex:none;width:56px;padding:0}
+
+/* welcome, block done, final */
+.hero h2,.fin h2{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,6.4vw,38px);line-height:1.12;margin:14px 0 14px;text-wrap:balance}
+.hero p,.fin p{max-width:54ch;margin:0 0 14px;font-size:16.5px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:10px 24px;align-items:center}
+.hero-art{justify-self:center;width:100%;max-width:260px}
+.honey{width:100%;height:auto;display:block;overflow:visible}
+.bee{animation:float 3.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+@media (max-width:620px){.hero{grid-template-columns:1fr}.hero-art{order:-1;max-width:200px}}
+.facts{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:18px 0 22px;padding:0}
+.facts li{background:var(--soft);border:2px solid var(--bd);border-radius:12px;padding:8px 14px;font-size:14px}
+.facts b{font-family:var(--f-display);font-size:20px;margin-right:4px}
+.bigmark{font-family:var(--f-display);font-weight:700;font-size:clamp(56px,16vw,96px);line-height:1;margin:6px 0 0;color:var(--hot);-webkit-text-stroke:2.5px var(--bd);paint-order:stroke fill;text-shadow:5px 5px 0 var(--sh)}
+.next-teaser{margin-top:20px;padding:14px 16px;background:var(--soft);border:2px dashed var(--bd);border-radius:12px}
+.next-teaser .e{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.next-teaser .t{font-weight:700;margin-top:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.actions .pri{margin-left:auto}
+.reset-row{display:flex;justify-content:flex-end}
+.link{background:none;border:0;padding:6px 2px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:underline;cursor:pointer}
+.link[data-arm]{color:var(--danger)}
+.time{flex:none;background:var(--surface);border:2.5px solid var(--bd);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;box-shadow:2px 2px 0 var(--sh);white-space:nowrap;transform:rotate(2deg)}
+.err{color:var(--danger)}
+.muted{color:var(--muted);font-size:14px}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40}
+#fx i{position:absolute;top:-24px;border:2px solid var(--bd);animation:fall 1.9s cubic-bezier(.25,.6,.45,1) forwards}
+@keyframes fall{to{transform:translate(var(--dx),112vh) rotate(var(--r))}}
+
+.pathsvg{display:block;width:100%;max-width:440px;height:auto;margin:10px 0 6px;overflow:visible}
+.path{margin-bottom:4px}
+.hx-pop,.hx-pulse{transform-box:fill-box;transform-origin:center}
+.hx-pop{animation:hxpop .6s cubic-bezier(.2,1.5,.4,1) both}
+.hx-pulse{animation:hxpulse 1.4s ease-in-out infinite}
+@keyframes hxpop{0%{opacity:0;transform:scale(.2)}100%{opacity:1;transform:scale(1)}}
+@keyframes hxpulse{50%{transform:scale(1.14)}}
+.beefly{animation:beefly 1.4s .5s ease-in-out both}
+@keyframes beefly{0%{transform:translate(0,0)}50%{transform:translate(36px,-9px)}100%{transform:translate(73px,0)}}
+.dl{margin:16px 0 4px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+/* results */
+.res-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.big{font-family:var(--f-display);font-size:42px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.rq{padding:16px 18px;margin-bottom:16px}
+.rq h4{margin:0 0 12px;font-size:15px;font-weight:700}
+.rq h4 span{color:var(--hot);font-family:var(--f-display);font-size:12px;margin-right:6px}
+.rb{display:grid;grid-template-columns:minmax(0,1fr) 78px;gap:4px 12px;margin-bottom:10px;font-size:14px}
+.rb .t{grid-column:1/-1;overflow-wrap:anywhere}
+.rb .tr{height:14px;background:var(--bg);border:2px solid var(--bd);border-radius:999px;overflow:hidden;align-self:center}
+.rb .tr i{display:block;height:100%;background:var(--hot)}
+.rb .v{text-align:right;font-variant-numeric:tabular-nums;font-size:13px;font-weight:600}
+.texts{max-height:260px;overflow:auto;display:grid;gap:8px;border:2px solid var(--bd);border-radius:12px;padding:10px;background:var(--soft)}
+.texts p{margin:0;font-size:14px;padding-bottom:8px;border-bottom:1.5px dashed var(--bd);overflow-wrap:anywhere;white-space:pre-wrap}
+.texts p:last-child{border:0;padding-bottom:0}
+.rh{font-family:var(--f-display);font-weight:700;font-size:18px;margin:26px 0 12px}
+
+@media (max-width:520px){
+  .card{padding:18px 14px;box-shadow:5px 5px 0 var(--sh)}
+  .chip{padding:6px 8px 7px}
+  .chip .t{font-size:11.5px}
+  .stepper{gap:6px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg class="logo" viewBox="-26 -26 56 56" aria-hidden="true" focusable="false"><polygon transform="translate(3 3)" points="0,-22 19.1,-11 19.1,11 0,22 -19.1,11 -19.1,-11" style="fill:var(--sh)"/><polygon points="0,-22 19.1,-11 19.1,11 0,22 -19.1,11 -19.1,-11" style="fill:var(--pick);stroke:var(--bd);stroke-width:2.5;stroke-linejoin:round"/><text x="0" y="4.2" text-anchor="middle" style="font-family:var(--f-display);font-weight:700;font-size:11px;fill:var(--pick-ink)">СОТ</text></svg>
+      <div class="bt"><h1>Результаты опроса</h1><p>Форум СОТ — 2026</p></div>
+    </div>
+  </header>
+  <main id="main"></main>
+</div>
+<script src="config.js"></script>
+<script>
+(function(){
+"use strict";
+var REGIONS=["Республика Адыгея","Республика Алтай","Республика Башкортостан","Республика Бурятия","Республика Дагестан","Республика Ингушетия","Кабардино-Балкарская Республика","Республика Калмыкия","Карачаево-Черкесская Республика","Республика Карелия","Республика Коми","Республика Крым","Республика Марий Эл","Республика Мордовия","Республика Саха (Якутия)","Республика Северная Осетия — Алания","Республика Татарстан","Республика Тыва","Удмуртская Республика","Республика Хакасия","Чеченская Республика","Чувашская Республика","Алтайский край","Забайкальский край","Камчатский край","Краснодарский край","Красноярский край","Пермский край","Приморский край","Ставропольский край","Хабаровский край","Амурская область","Архангельская область","Астраханская область","Белгородская область","Брянская область","Владимирская область","Волгоградская область","Вологодская область","Воронежская область","Ивановская область","Иркутская область","Калининградская область","Калужская область","Кемеровская область — Кузбасс","Кировская область","Костромская область","Курганская область","Курская область","Ленинградская область","Липецкая область","Магаданская область","Московская область","Мурманская область","Нижегородская область","Новгородская область","Новосибирская область","Омская область","Оренбургская область","Орловская область","Пензенская область","Псковская область","Ростовская область","Рязанская область","Самарская область","Саратовская область","Сахалинская область","Свердловская область","Смоленская область","Тамбовская область","Тверская область","Томская область","Тульская область","Тюменская область","Ульяновская область","Челябинская область","Ярославская область","Москва","Санкт-Петербург","Севастополь","Еврейская автономная область","Ненецкий автономный округ","Ханты-Мансийский автономный округ — Югра","Чукотский автономный округ","Ямало-Ненецкий автономный округ","Донецкая Народная Республика","Луганская Народная Республика","Запорожская область","Херсонская область"];
+
+var BLOCKS=[
+{short:"Конкурсы",eyebrow:"Блок 1 из 6",title:"Профессиональные конкурсы: вдохновение, нагрузка или новые возможности?",sub:"",qs:[
+ {id:"q1",t:"Какое утверждение о педагогических конкурсах вам ближе?",type:"one",opts:["Конкурсы вдохновляют, помогают развиваться и открывают новые возможности.","Конкурсы полезны, но требуют много времени и сил.","Конкурсы часто становятся формальностью без практической пользы."]},
+ {id:"q2",t:"Как конкурсы влияют на профессиональное выгорание?",type:"one",opts:["Помогают: вдохновляют, дают новые знакомства и ощущение роста.","Могут и вдохновлять, и усиливать нагрузку — зависит от организации.","Скорее усиливают стресс и рабочую нагрузку."]},
+ {id:"q3",t:"Что больше всего мешает педагогам участвовать в конкурсах?",type:"multi",max:2,opts:["Нехватка времени из-за преподавательской нагрузки.","Сложные процедуры, много документов и длительная подготовка.","Неясно, какую практическую пользу принесёт участие.","Недостаток поддержки со стороны организации."],other:true},
+ {id:"q4",t:"Отказывались ли вы от участия, узнав условия конкурса?",type:"one",opts:["Да, из-за сложности или объёма работы.","Да, ожидаемая польза не оправдывала усилий.","Нет, условия не были причиной отказа.","Не планировал(а) участвовать."]},
+ {id:"q5",t:"Какое преимущество конкурса для вас важнее всего?",type:"one",opts:["Грант на реализацию своей образовательной идеи.","Представить проект на федеральном уровне и получить признание.","Помощь во внедрении проекта в других организациях."]},
+ {id:"q6",t:"Помогают ли конкурсы карьерному росту?",type:"one",opts:["Да, открывают новые карьерные возможности.","Частично: признание есть, но карьера меняется редко.","Нет, почти не влияют на карьеру."]}
+]},
+{short:"Ваш опыт",eyebrow:"Блок 2 из 6",title:"Конкурсная жизнь педагога",sub:"",qs:[
+ {id:"q7",t:"В скольких педагогических конкурсах вы участвовали за последний год?",type:"one",opts:["Ни в одном.","В одном.","В двух-трёх.","В четырёх и более."]},
+ {id:"q8",t:"В каких педагогических конкурсах вы участвовали за последние три года?",type:"text",note:"Свободный ответ. Если не участвовали, напишите «Не участвовал(а)».",ph:"Названия конкурсов через запятую"},
+ {id:"q9",t:"Что побуждает вас участвовать в конкурсах?",type:"multi",max:2,opts:["Проверить свои возможности и получить оценку экспертов.","Представить свои разработки и обменяться опытом.","Получить награды, гранты, признание или карьерные преимущества.","Рекомендация или инициатива руководства."]},
+ {id:"q10",t:"Что изменилось в вашей профессиональной жизни после конкурсов?",type:"multi",max:2,opts:["Получил(а) признание, повышение или новые обязанности.","Нашёл(ла) партнёров, единомышленников или новые проекты.","Получил(а) финансирование или внедрил(а) свою разработку.","Существенных изменений не произошло."]}
+]},
+{short:"Престиж",eyebrow:"Блок 3 из 6",title:"Престиж и новые возможности",sub:"",qs:[
+ {id:"q13",t:"Интересны ли вам финалы конкурсов на уникальных образовательных площадках России?",type:"one",opts:["Да, уникальная образовательная площадка — дополнительный стимул участвовать.","Интереснее посетить другой регион, познакомиться с коллегами и его культурой.","Нет, главное — конкурсная программа, а не место финала."]},
+ {id:"q16",t:"Какая форма признания победы для вас важнее?",type:"one",opts:["Официальная награда, статус и публичное признание.","Провести авторский мастер-класс для коллег со всей России.","Войти в экспертное сообщество и новые образовательные проекты."]},
+ {id:"q17",t:"Что вам интереснее получить после выхода в финал?",type:"one",opts:["Поездку в другой регион с посещением ведущих школ и центров.","Индивидуальное наставничество известного эксперта.","Совместный проект с финалистами из других регионов."]},
+ {id:"q18",t:"О каком результате победы в конкурсе вы мечтаете?",type:"one",opts:["Чтобы мою разработку применяли в образовательных организациях по всей России.","Представить проект на крупной федеральной площадке перед ведущими экспертами.","Стать наставником коллег из других регионов и лидером сообщества."]}
+]},
+{short:"Что дальше",eyebrow:"Блок 4 из 6",title:"Жизнь после конкурса: что происходит с идеями?",sub:"",qs:[
+ {id:"q19",t:"Что стало с вашей разработкой после конкурса?",type:"one",opts:["Проект развивался, получил поддержку или внедрён в других организациях.","Проект используется в основном в моей организации.","После конкурса проект почти не развивался."]},
+ {id:"q20",t:"Что мешает проектам развиваться после конкурса?",type:"one",opts:["Нехватка финансирования и ресурсов.","Нет поддержки и механизмов внедрения.","Мало известности и заинтересованных партнёров."]},
+ {id:"q21",t:"Если ваш проект не победил, что было бы полезнее всего?",type:"one",opts:["Экспертная оценка и рекомендации по улучшению.","Представить идею потенциальным партнёрам.","Обучение или стажировка для развития проекта."]},
+ {id:"q22",t:"Хотели бы вы представить свою разработку коллегам из других регионов?",type:"one",opts:["Да, на очных мастер-классах в разных регионах.","Да, но онлайн: вебинары, мастер-классы, консультации.","Нет, предпочту развивать проект в своей организации."]},
+ {id:"q23",t:"Поддерживаете ли вы «Педагогические гастроли» — поездки финалистов и победителей с мастер-классами по регионам?",type:"one",opts:["Да, это поможет распространять лучшие практики по стране.","Скорее да, но важнее онлайн-доступ к мастер-классам.","Нет, полезнее длительное наставничество, чем разовые выступления."]},
+ {id:"q24",t:"Какие проекты коллег вы хотели бы внедрить у себя?",type:"multi",max:2,opts:["Технологические: ИИ, цифровые инструменты, инженерные разработки.","Методические: игры, проектное обучение, индивидуальные маршруты.","Социальные и воспитательные: профориентация, культура, инклюзия, здоровье."]}
+]},
+{short:"Будущее",eyebrow:"Блок 5 из 6",title:"Конкурсы будущего: ИИ, форматы и сообщество",sub:"",qs:[
+ {id:"q25",t:"Как вы относитесь к применению ИИ при подготовке конкурсных работ?",type:"one",opts:["Положительно: ИИ помогает с идеями, материалами и экономит время.","Допускаю ИИ для оформления, но содержание должно быть авторским.","Отрицательно: работа должна быть полностью самостоятельной."]},
+ {id:"q27",t:"Что вы изменили бы в конкурсах в первую очередь?",type:"one",opts:["Упростить подачу заявок и сократить нагрузку.","Сделать оценку работ прозрачнее и объективнее.","Поддерживать перспективные проекты после конкурса."]},
+ {id:"q28",t:"Какой формат конкурса вам интереснее?",type:"one",opts:["Состязание в мастерстве с заданиями и экспертной оценкой.","Конкурс авторских проектов с возможностью получить грант.","Фестиваль практик для обмена опытом и совместных проектов."]},
+ {id:"q30",t:"Какое направление развития сообщества СОТ важнее?",type:"one",opts:["Постоянная сеть участников, финалистов и экспертов разных лет.","Межрегиональные стажировки, поездки и авторские мастер-классы.","Совместные образовательные проекты и партнёрства."]},
+ {id:"q31",t:"Что важнее для образования: находить таланты или распространять лучшие практики?",type:"one",opts:["Поиск талантов и поддержка новых идей.","Распространение успешных разработок по всей стране.","Оба направления: находить таланты и внедрять их разработки."]}
+]},
+{short:"Ваши идеи",eyebrow:"Блок 6 из 6",title:"Истории, идеи и предложения",sub:"Поделитесь опытом и идеями для итоговой резолюции.",open:true,qs:[
+ {id:"o1",t:"Какое одно правило педагогических конкурсов вы бы изменили?",type:"text",note:"Свободный ответ. Одного предложения достаточно.",ph:"Например: сократить пакет документов до одной страницы"},
+ {id:"o2",t:"Расскажите запомнившуюся историю, связанную с конкурсом.",type:"text",tall:true,note:"Свободный ответ. Например: дружба, совместный проект, неожиданная возможность, поездка или открытие.",ph:"Как всё началось и чем закончилось?"},
+ {id:"o3",t:"Какой педагогический проект или практику стоит распространить по России? Почему?",type:"text",note:"Свободный ответ. Назовите проект и коротко скажите, чем он полезен.",ph:"Название проекта и чем он помог вам или коллегам"},
+ {id:"o4",t:"Что вы предложили бы включить в Открытую резолюцию Форума СОТ — 2026?",type:"text",note:"Свободный ответ. Даже одно предложение — ценный вклад.",ph:"Я предлагаю включить в резолюцию…"}
+]},
+{short:"О вас",eyebrow:"Последний шаг",title:"Информация об участнике",sub:"Можно пропустить любой пункт.",qs:[
+ {id:"p1",n:"1",p:true,t:"Ваше отношение к Форуму СОТ",type:"one",opts:["Участник, финалист или победитель конкурса СОТ.","Участник Форума СОТ (без участия в конкурсах).","Не участвовал(а) в СОТ."]},
+ {id:"p2",n:"2",p:true,t:"Ваша профессиональная деятельность",type:"one",opts:["Учитель школы.","Воспитатель детского сада.","Преподаватель колледжа или техникума.","Педагог дополнительного образования.","Руководитель или заместитель руководителя.","Методист.","Преподаватель вуза."],other:true},
+ {id:"p3",n:"3",p:true,t:"Ваш педагогический стаж",type:"one",opts:["Менее 3 лет.","От 3 до 10 лет.","От 11 до 20 лет.","Более 20 лет."]},
+ {id:"p4",n:"4",p:true,t:"Регион Российской Федерации",type:"select",opts:REGIONS,note:"Выбор из списка регионов."},
+ {id:"p5",n:"5",p:true,t:"ФИО",type:"short",note:"Необязательно."},
+ {id:"p6",n:"6",p:true,t:"Электронная почта",type:"email",note:"Необязательно. Для получения результатов опроса."}
+]}
+];
+var __n=0;BLOCKS.forEach(function(b){b.qs.forEach(function(q){if(!q.p){__n++;q.n=__n;}});});
+
+var CFG=window.SURVEY_CONFIG||{};
+var ALLQ=[];BLOCKS.forEach(function(b){b.qs.forEach(function(q){ALLQ.push(q);});});
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function labelOf(q,a,other){
+  var opts=q.opts?q.opts.slice():[];if(q.other)opts.push("Другое");
+  if(q.type==="one"){return a===undefined?"":(opts[a]||"")+((q.other&&a===q.opts.length&&other)?": "+other:"");}
+  if(q.type==="multi"){return (a||[]).map(function(i){return (opts[i]||"")+((q.other&&i===q.opts.length&&other)?": "+other:"");}).join("; ");}
+  return a||"";
+}
+function plural(n){var m=n%10,k=n%100;return (m===1&&k!==11)?"ответ":(m>=2&&m<=4&&(k<10||k>=20))?"ответа":"ответов";}
+var RES=[],KEY="";
+try{KEY=sessionStorage.getItem("sot-key")||"";}catch(e){}
+function drawLogin(msg){
+  $("main").innerHTML='<section class="card pop"><span class="sticker">Только для организатора</span><h2 class="qt" style="margin-top:14px">Введите пароль</h2><form id="lf"><input type="password" id="pw" aria-label="Пароль" placeholder="Пароль" autocomplete="current-password"><p class="err" id="lerr" role="alert" style="min-height:1.5em;margin:0 0 12px">'+esc(msg||"")+'</p><button type="submit" class="btn pri big" id="lgo">Открыть результаты</button></form></section>';
+  $("lf").onsubmit=function(e){e.preventDefault();KEY=$("pw").value;load(true);};
+  $("pw").focus();
+}
+async function load(fromForm){
+  if(!CFG.endpoint){$("main").innerHTML='<section class="card"><p class="err" style="margin:0">В config.js не указан адрес сервера.</p></section>';return;}
+  var btn=$("lgo");if(btn){btn.disabled=true;btn.textContent="Проверяю…";}
+  try{
+    var r=await fetch(CFG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"results",key:KEY})});
+    var j=await r.json();
+    if(!j.ok){
+      if(j.error==="auth"){KEY="";try{sessionStorage.removeItem("sot-key");}catch(e){}drawLogin(fromForm?"Неверный пароль":"");return;}
+      throw new Error(j.error||"error");
+    }
+    try{sessionStorage.setItem("sot-key",KEY);}catch(e){}
+    RES=(j.rows||[]).map(function(x){return {id:x.id,at:x.at?Date.parse(x.at):0,a:x.answers||{}};});
+    drawResults();
+  }catch(e){drawLogin("Не удалось получить данные. Проверьте интернет и адрес сервера в config.js.");}
+}
+function drawResults(){
+  var n=RES.length,last=0;RES.forEach(function(r){if(r.at>last)last=r.at;});
+  var h='<div class="res-head"><div><span class="sticker">Результаты</span><div class="big" style="margin-top:12px">'+n+' <span class="muted" style="font-family:var(--f-body);font-weight:500">'+plural(n)+'</span></div>'+(last?'<p class="muted" style="margin:6px 0 0">Последний: '+esc(new Date(last).toLocaleString("ru-RU"))+'</p>':'')+'</div><div style="display:flex;flex-wrap:wrap;gap:8px"><button type="button" class="btn sm" id="rf">Обновить</button><button type="button" class="btn sm" id="csv"'+(n?"":" disabled")+'>Скачать CSV для Excel</button><button type="button" class="btn sm" id="out">Выйти</button></div></div>';
+  if(!n)h+='<section class="card"><p class="muted" style="margin:0">Пока ответов нет. Они появятся здесь сразу после первой отправки.</p></section>';
+  else BLOCKS.forEach(function(b){
+    h+='<h3 class="rh">'+esc(b.short)+'</h3>';
+    b.qs.forEach(function(q){h+='<section class="card rq"><h4><span>'+(q.p?"О вас · "+q.n:"№"+q.n)+'</span>'+esc(q.t)+'</h4>'+resBody(q)+'</section>';});
+  });
+  $("main").innerHTML=h;
+  $("rf").onclick=function(){$("rf").textContent="Обновляю…";load(false);};
+  $("out").onclick=function(){KEY="";RES=[];try{sessionStorage.removeItem("sot-key");}catch(e){}drawLogin("");};
+  var c=$("csv");if(c)c.onclick=exportCsv;
+}
+function resBody(q){
+  var h="";
+  if(q.type==="one"||q.type==="multi"){
+    var opts=q.opts.slice();if(q.other)opts.push("Другое");
+    var cnt=opts.map(function(){return 0;}),others=[],resp=0;
+    RES.forEach(function(r){var a=r.a[q.id];var arr=q.type==="one"?(a===undefined?[]:[a]):(Array.isArray(a)?a:[]);if(arr.length)resp++;arr.forEach(function(i){if(cnt[i]!==undefined)cnt[i]++;});if(q.other&&arr.indexOf(q.opts.length)>-1&&r.a[q.id+"_o"])others.push(r.a[q.id+"_o"]);});
+    opts.forEach(function(o,i){var p=resp?Math.round(cnt[i]/resp*100):0;h+='<div class="rb"><div class="t">'+esc(o)+'</div><div class="tr"><i style="width:'+p+'%"></i></div><div class="v">'+cnt[i]+' · '+p+'%</div></div>';});
+    if(others.length)h+='<div class="texts">'+others.map(function(t){return '<p>'+esc(t)+'</p>';}).join("")+'</div>';
+    h+='<p class="muted" style="margin:10px 0 0">Ответили на вопрос: '+resp+'</p>';
+  }else if(q.type==="select"){
+    var m={};RES.forEach(function(r){var v=r.a[q.id];if(v)m[v]=(m[v]||0)+1;});
+    var ks=Object.keys(m).sort(function(a,b){return m[b]-m[a];}),mx=ks.length?m[ks[0]]:1;
+    ks.forEach(function(k){h+='<div class="rb"><div class="t">'+esc(k)+'</div><div class="tr"><i style="width:'+(m[k]/mx*100)+'%"></i></div><div class="v">'+m[k]+'</div></div>';});
+    if(!ks.length)h+='<p class="muted">Нет ответов</p>';
+  }else{
+    var tx=RES.map(function(r){return r.a[q.id];}).filter(function(t){return t&&String(t).trim();});
+    h+=tx.length?'<div class="texts">'+tx.map(function(t){return '<p>'+esc(t)+'</p>';}).join("")+'</div>':'<p class="muted">Нет ответов</p>';
+  }
+  return h;
+}
+function exportCsv(){
+  var cell=function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';};
+  var head=["Время отправки"].concat(ALLQ.map(function(q){return (q.p?"О вас "+q.n:"№"+q.n)+". "+q.t;}));
+  var lines=[head.map(cell).join(";")];
+  RES.slice().sort(function(a,b){return a.at-b.at;}).forEach(function(r){
+    lines.push([r.at?new Date(r.at).toLocaleString("ru-RU"):""].concat(ALLQ.map(function(q){return labelOf(q,r.a[q.id],r.a[q.id+"_o"]);})).map(cell).join(";"));
+  });
+  var blob=new Blob(["﻿"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="sot-2026-results.csv";
+  document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+}
+if(KEY)load(false);else drawLogin("");
+})();
+</script>
+</body>
+</html>

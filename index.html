@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Опрос Форума СОТ — 2026</title>
+<meta name="description" content="Опрос педагогов о конкурсах, идеях и профессиональном сообществе. Займёт около 3 минут.">
+<meta name="theme-color" content="#FFD23F">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Опрос Форума СОТ — 2026">
+<meta property="og:description" content="Опрос педагогов о конкурсах, идеях и профессиональном сообществе. Займёт около 3 минут.">
+<meta property="og:image" content="https://sot2026.github.io/og.png">
+<meta property="og:url" content="https://sot2026.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%27-26%20-26%2056%2056%27%3E%3Cpolygon%20points%3D%270%2C-22%2019.1%2C-11%2019.1%2C11%200%2C22%20-19.1%2C11%20-19.1%2C-11%27%20fill%3D%27%23FFB400%27%20stroke%3D%27%2315120A%27%20stroke-width%3D%273%27%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<style>
+/* Layout: poster-style survey. Sticky header with block chips on top, one question per screen in a chunky card, tap an answer and it turns the page itself. Yellow, ink and orange, like the СОТ site. */
+:root{
+  --bg:#FFD23F; --surface:#FFFFFF; --ink:#15120A; --muted:#4D4720; --bd:#15120A; --sh:#15120A;
+  --pick:#FF8A3D; --pick-ink:#15120A; --hot:#FF4F1A; --ok:#1F9D63; --btn:#15120A; --btn-ink:#FFD23F; --soft:#FFF1B8; --danger:#C0210F;
+  --f-display:"Unbounded","Onest",system-ui,sans-serif; --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15120A; --surface:#221D0F; --ink:#FFF3CC; --muted:#CDBF8C; --bd:#F2C94C; --sh:#7A5C0B;
+    --pick:#FFB400; --pick-ink:#15120A; --hot:#FF7A3D; --ok:#4BD08B; --btn:#FFD23F; --btn-ink:#15120A; --soft:#2F2711; --danger:#FF8A80; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15120A; --surface:#221D0F; --ink:#FFF3CC; --muted:#CDBF8C; --bd:#F2C94C; --sh:#7A5C0B;
+  --pick:#FFB400; --pick-ink:#15120A; --hot:#FF7A3D; --ok:#4BD08B; --btn:#FFD23F; --btn-ink:#15120A; --soft:#2F2711; --danger:#FF8A80; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.wrap{max-width:760px;margin:0 auto}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+
+/* header */
+.top{padding:12px 0 6px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.logo{flex:none;width:54px;height:54px;overflow:visible}
+.bt{min-width:0;flex:1}
+.bt h1{margin:0;font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.2}
+.bt p{margin:0;font-size:12.5px;color:var(--muted)}
+.stepper{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:2px 3px 6px 1px}
+.chip{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"n c" "t t";align-items:center;gap:1px 6px;min-width:0;padding:7px 10px 8px;background:var(--surface);border:2.5px solid var(--bd);border-radius:12px;cursor:pointer;text-align:left;box-shadow:2px 2px 0 var(--sh)}
+.chip .n{grid-area:n;font-family:var(--f-display);font-weight:700;font-size:15px;line-height:1.2}
+.chip .c{grid-area:c;justify-self:end;font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip .t{grid-area:t;font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip.on{background:var(--btn);color:var(--btn-ink)}
+.chip.on .c{color:var(--btn-ink)}
+.chip.done .n{color:var(--ok)}
+.chip.on.done .n{color:var(--btn-ink)}
+#banner{margin-top:8px;background:var(--surface);border:2px dashed var(--bd);border-radius:10px;padding:8px 12px;font-size:13px}
+
+/* screens */
+main{padding:18px 0 28px;min-height:60vh}
+.meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-bottom:12px}
+.sticker{display:inline-block;background:var(--hot);color:#fff;border:2.5px solid var(--bd);border-radius:8px;padding:3px 10px;font-family:var(--f-display);font-weight:700;font-size:12px;transform:rotate(-2deg);box-shadow:2px 2px 0 var(--sh)}
+:root[data-theme="dark"] .sticker{color:#15120A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sticker{color:#15120A}}
+.blk{font-size:13px;font-weight:600;color:var(--muted)}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.dot{width:26px;height:10px;padding:0;border:2px solid var(--bd);border-radius:6px;background:var(--surface);cursor:pointer}
+.dot.ok{background:var(--ink)}
+.dot.on{background:var(--hot);width:40px}
+.card{background:var(--surface);border:2.5px solid var(--bd);border-radius:20px;box-shadow:6px 6px 0 var(--sh);padding:22px 20px}
+.card.pop{animation:pop .32s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes pop{from{opacity:0;transform:translateY(16px) rotate(-.8deg)}to{opacity:1;transform:none}}
+.qt{margin:0 0 6px;font-size:clamp(19px,4.6vw,24px);line-height:1.3;font-weight:700;text-wrap:pretty}
+.hint{margin:0 0 16px;font-size:13.5px;color:var(--muted)}
+.opts{display:grid;gap:10px}
+.opt{position:relative;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--surface);border:2.5px solid var(--bd);border-radius:14px;cursor:pointer;box-shadow:3px 3px 0 var(--sh);transition:transform .12s,box-shadow .12s,background .12s}
+.opt:hover{background:var(--soft)}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.mark{flex:none;width:34px;height:34px;border:2.5px solid var(--bd);border-radius:9px;display:grid;place-items:center;background:var(--bg);font-family:var(--f-display);font-weight:700;font-size:13px}
+.otxt{min-width:0;overflow-wrap:anywhere;padding-top:3px;font-weight:500}
+.opt.sel{background:var(--pick);color:var(--pick-ink);transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
+.opt.sel .mark{background:var(--surface);color:var(--ink)}
+.opt.sel .mark b{display:none}
+.opt.sel .mark::after{content:"";width:8px;height:15px;border:solid var(--ink);border-width:0 3.5px 3.5px 0;transform:translateY(-2px) rotate(45deg)}
+.opt:focus-within{outline:3px solid var(--hot);outline-offset:2px}
+.opt.off{opacity:.45;cursor:not-allowed}
+.other{margin-top:10px}
+input[type=text],input[type=email],textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--surface);border:2.5px solid var(--bd);border-radius:12px;padding:12px 14px}
+textarea{min-height:150px;resize:vertical}
+input[type=text]:focus,input[type=email]:focus,textarea:focus,select:focus{outline:3px solid var(--hot);outline-offset:2px}
+.tip{margin-top:12px;font-size:13px;color:var(--muted)}
+
+/* buttons + bottom bar */
+.btn{border:2.5px solid var(--bd);background:var(--surface);color:var(--ink);border-radius:14px;padding:12px 20px;font-weight:700;cursor:pointer;min-height:50px;box-shadow:3px 3px 0 var(--sh);transition:transform .1s,box-shadow .1s}
+.btn:active:not([disabled]){transform:translate(3px,3px);box-shadow:0 0 0 var(--sh)}
+.btn.pri{background:var(--btn);color:var(--btn-ink)}
+.btn.big{font-family:var(--f-display);font-size:15px;padding:16px 26px}
+.btn.sm{min-height:40px;padding:7px 14px;font-size:14px}
+.btn[disabled]{opacity:.55;cursor:wait}
+.nav{margin-top:18px;display:flex;gap:10px}
+.nav .btn.pri{flex:1}
+.nav .back{flex:none;width:56px;padding:0}
+
+/* welcome, block done, final */
+.hero h2,.fin h2{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,6.4vw,38px);line-height:1.12;margin:14px 0 14px;text-wrap:balance}
+.hero p,.fin p{max-width:54ch;margin:0 0 14px;font-size:16.5px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,260px);gap:10px 24px;align-items:center}
+.hero-art{justify-self:center;width:100%;max-width:260px}
+.honey{width:100%;height:auto;display:block;overflow:visible}
+.bee{animation:float 3.2s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+@media (max-width:620px){.hero{grid-template-columns:1fr}.hero-art{order:-1;max-width:200px}}
+.facts{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:18px 0 22px;padding:0}
+.facts li{background:var(--soft);border:2px solid var(--bd);border-radius:12px;padding:8px 14px;font-size:14px}
+.facts b{font-family:var(--f-display);font-size:20px;margin-right:4px}
+.bigmark{font-family:var(--f-display);font-weight:700;font-size:clamp(56px,16vw,96px);line-height:1;margin:6px 0 0;color:var(--hot);-webkit-text-stroke:2.5px var(--bd);paint-order:stroke fill;text-shadow:5px 5px 0 var(--sh)}
+.next-teaser{margin-top:20px;padding:14px 16px;background:var(--soft);border:2px dashed var(--bd);border-radius:12px}
+.next-teaser .e{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.next-teaser .t{font-weight:700;margin-top:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.actions .pri{margin-left:auto}
+.reset-row{display:flex;justify-content:flex-end}
+.link{background:none;border:0;padding:6px 2px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:underline;cursor:pointer}
+.link[data-arm]{color:var(--danger)}
+.time{flex:none;background:var(--surface);border:2.5px solid var(--bd);border-radius:999px;padding:4px 12px;font-weight:700;font-size:13px;box-shadow:2px 2px 0 var(--sh);white-space:nowrap;transform:rotate(2deg)}
+.err{color:var(--danger)}
+.muted{color:var(--muted);font-size:14px}
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40}
+#fx i{position:absolute;top:-24px;border:2px solid var(--bd);animation:fall 1.9s cubic-bezier(.25,.6,.45,1) forwards}
+@keyframes fall{to{transform:translate(var(--dx),112vh) rotate(var(--r))}}
+
+.pathsvg{display:block;width:100%;max-width:440px;height:auto;margin:10px 0 6px;overflow:visible}
+.path{margin-bottom:4px}
+.hx-pop,.hx-pulse{transform-box:fill-box;transform-origin:center}
+.hx-pop{animation:hxpop .6s cubic-bezier(.2,1.5,.4,1) both}
+.hx-pulse{animation:hxpulse 1.4s ease-in-out infinite}
+@keyframes hxpop{0%{opacity:0;transform:scale(.2)}100%{opacity:1;transform:scale(1)}}
+@keyframes hxpulse{50%{transform:scale(1.14)}}
+.beefly{animation:beefly 1.4s .5s ease-in-out both}
+@keyframes beefly{0%{transform:translate(0,0)}50%{transform:translate(36px,-9px)}100%{transform:translate(73px,0)}}
+.dl{margin:16px 0 4px;font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+/* results */
+.res-head{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.big{font-family:var(--f-display);font-size:42px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+.rq{padding:16px 18px;margin-bottom:16px}
+.rq h4{margin:0 0 12px;font-size:15px;font-weight:700}
+.rq h4 span{color:var(--hot);font-family:var(--f-display);font-size:12px;margin-right:6px}
+.rb{display:grid;grid-template-columns:minmax(0,1fr) 78px;gap:4px 12px;margin-bottom:10px;font-size:14px}
+.rb .t{grid-column:1/-1;overflow-wrap:anywhere}
+.rb .tr{height:14px;background:var(--bg);border:2px solid var(--bd);border-radius:999px;overflow:hidden;align-self:center}
+.rb .tr i{display:block;height:100%;background:var(--hot)}
+.rb .v{text-align:right;font-variant-numeric:tabular-nums;font-size:13px;font-weight:600}
+.texts{max-height:260px;overflow:auto;display:grid;gap:8px;border:2px solid var(--bd);border-radius:12px;padding:10px;background:var(--soft)}
+.texts p{margin:0;font-size:14px;padding-bottom:8px;border-bottom:1.5px dashed var(--bd);overflow-wrap:anywhere;white-space:pre-wrap}
+.texts p:last-child{border:0;padding-bottom:0}
+.rh{font-family:var(--f-display);font-weight:700;font-size:18px;margin:26px 0 12px}
+
+@media (max-width:520px){
+  .card{padding:18px 14px;box-shadow:5px 5px 0 var(--sh)}
+  .chip{padding:6px 8px 7px}
+  .chip .t{font-size:11.5px}
+  .stepper{gap:6px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg class="logo" viewBox="-26 -26 56 56" aria-hidden="true" focusable="false"><polygon transform="translate(3 3)" points="0,-22 19.1,-11 19.1,11 0,22 -19.1,11 -19.1,-11" style="fill:var(--sh)"/><polygon points="0,-22 19.1,-11 19.1,11 0,22 -19.1,11 -19.1,-11" style="fill:var(--pick);stroke:var(--bd);stroke-width:2.5;stroke-linejoin:round"/><text x="0" y="4.2" text-anchor="middle" style="font-family:var(--f-display);font-weight:700;font-size:11px;fill:var(--pick-ink)">СОТ</text></svg>
+      <div class="bt"><h1>Опрос Форума СОТ — 2026</h1><p>Опрос педагогов</p></div>
+      <div class="time" aria-label="Займёт около трёх минут">≈ 3 минуты</div>
+    </div>
+    <nav class="stepper" id="stepper" aria-label="Блоки опроса"></nav>
+    <div class="reset-row"><button type="button" class="link" id="reset">Начать сначала</button></div>
+    <div id="banner" hidden></div>
+  </header>
+  <main id="main"></main>
+  <div class="nav" id="nav" hidden>
+    <button class="btn back" id="back" type="button" aria-label="Назад">←</button>
+    <button class="btn pri" id="next" type="button">Далее</button>
+  </div>
+</div>
+<div id="fx" aria-hidden="true"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+"use strict";
+var REGIONS=["Республика Адыгея","Республика Алтай","Республика Башкортостан","Республика Бурятия","Республика Дагестан","Республика Ингушетия","Кабардино-Балкарская Республика","Республика Калмыкия","Карачаево-Черкесская Республика","Республика Карелия","Республика Коми","Республика Крым","Республика Марий Эл","Республика Мордовия","Республика Саха (Якутия)","Республика Северная Осетия — Алания","Республика Татарстан","Республика Тыва","Удмуртская Республика","Республика Хакасия","Чеченская Республика","Чувашская Республика","Алтайский край","Забайкальский край","Камчатский край","Краснодарский край","Красноярский край","Пермский край","Приморский край","Ставропольский край","Хабаровский край","Амурская область","Архангельская область","Астраханская область","Белгородская область","Брянская область","Владимирская область","Волгоградская область","Вологодская область","Воронежская область","Ивановская область","Иркутская область","Калининградская область","Калужская область","Кемеровская область — Кузбасс","Кировская область","Костромская область","Курганская область","Курская область","Ленинградская область","Липецкая область","Магаданская область","Московская область","Мурманская область","Нижегородская область","Новгородская область","Новосибирская область","Омская область","Оренбургская область","Орловская область","Пензенская область","Псковская область","Ростовская область","Рязанская область","Самарская область","Саратовская область","Сахалинская область","Свердловская область","Смоленская область","Тамбовская область","Тверская область","Томская область","Тульская область","Тюменская область","Ульяновская область","Челябинская область","Ярославская область","Москва","Санкт-Петербург","Севастополь","Еврейская автономная область","Ненецкий автономный округ","Ханты-Мансийский автономный округ — Югра","Чукотский автономный округ","Ямало-Ненецкий автономный округ","Донецкая Народная Республика","Луганская Народная Республика","Запорожская область","Херсонская область"];
+
+var BLOCKS=[
+{short:"Конкурсы",eyebrow:"Блок 1 из 6",title:"Профессиональные конкурсы: вдохновение, нагрузка или новые возможности?",sub:"",qs:[
+ {id:"q1",t:"Какое утверждение о педагогических конкурсах вам ближе?",type:"one",opts:["Конкурсы вдохновляют, помогают развиваться и открывают новые возможности.","Конкурсы полезны, но требуют много времени и сил.","Конкурсы часто становятся формальностью без практической пользы."]},
+ {id:"q2",t:"Как конкурсы влияют на профессиональное выгорание?",type:"one",opts:["Помогают: вдохновляют, дают новые знакомства и ощущение роста.","Могут и вдохновлять, и усиливать нагрузку — зависит от организации.","Скорее усиливают стресс и рабочую нагрузку."]},
+ {id:"q3",t:"Что больше всего мешает педагогам участвовать в конкурсах?",type:"multi",max:2,opts:["Нехватка времени из-за преподавательской нагрузки.","Сложные процедуры, много документов и длительная подготовка.","Неясно, какую практическую пользу принесёт участие.","Недостаток поддержки со стороны организации."],other:true},
+ {id:"q4",t:"Отказывались ли вы от участия, узнав условия конкурса?",type:"one",opts:["Да, из-за сложности или объёма работы.","Да, ожидаемая польза не оправдывала усилий.","Нет, условия не были причиной отказа.","Не планировал(а) участвовать."]},
+ {id:"q5",t:"Какое преимущество конкурса для вас важнее всего?",type:"one",opts:["Грант на реализацию своей образовательной идеи.","Представить проект на федеральном уровне и получить признание.","Помощь во внедрении проекта в других организациях."]},
+ {id:"q6",t:"Помогают ли конкурсы карьерному росту?",type:"one",opts:["Да, открывают новые карьерные возможности.","Частично: признание есть, но карьера меняется редко.","Нет, почти не влияют на карьеру."]}
+]},
+{short:"Ваш опыт",eyebrow:"Блок 2 из 6",title:"Конкурсная жизнь педагога",sub:"",qs:[
+ {id:"q7",t:"В скольких педагогических конкурсах вы участвовали за последний год?",type:"one",opts:["Ни в одном.","В одном.","В двух-трёх.","В четырёх и более."]},
+ {id:"q8",t:"В каких педагогических конкурсах вы участвовали за последние три года?",type:"text",note:"Свободный ответ. Если не участвовали, напишите «Не участвовал(а)».",ph:"Названия конкурсов через запятую"},
+ {id:"q9",t:"Что побуждает вас участвовать в конкурсах?",type:"multi",max:2,opts:["Проверить свои возможности и получить оценку экспертов.","Представить свои разработки и обменяться опытом.","Получить награды, гранты, признание или карьерные преимущества.","Рекомендация или инициатива руководства."]},
+ {id:"q10",t:"Что изменилось в вашей профессиональной жизни после конкурсов?",type:"multi",max:2,opts:["Получил(а) признание, повышение или новые обязанности.","Нашёл(ла) партнёров, единомышленников или новые проекты.","Получил(а) финансирование или внедрил(а) свою разработку.","Существенных изменений не произошло."]}
+]},
+{short:"Престиж",eyebrow:"Блок 3 из 6",title:"Престиж и новые возможности",sub:"",qs:[
+ {id:"q13",t:"Интересны ли вам финалы конкурсов на уникальных образовательных площадках России?",type:"one",opts:["Да, уникальная образовательная площадка — дополнительный стимул участвовать.","Интереснее посетить другой регион, познакомиться с коллегами и его культурой.","Нет, главное — конкурсная программа, а не место финала."]},
+ {id:"q16",t:"Какая форма признания победы для вас важнее?",type:"one",opts:["Официальная награда, статус и публичное признание.","Провести авторский мастер-класс для коллег со всей России.","Войти в экспертное сообщество и новые образовательные проекты."]},
+ {id:"q17",t:"Что вам интереснее получить после выхода в финал?",type:"one",opts:["Поездку в другой регион с посещением ведущих школ и центров.","Индивидуальное наставничество известного эксперта.","Совместный проект с финалистами из других регионов."]},
+ {id:"q18",t:"О каком результате победы в конкурсе вы мечтаете?",type:"one",opts:["Чтобы мою разработку применяли в образовательных организациях по всей России.","Представить проект на крупной федеральной площадке перед ведущими экспертами.","Стать наставником коллег из других регионов и лидером сообщества."]}
+]},
+{short:"Что дальше",eyebrow:"Блок 4 из 6",title:"Жизнь после конкурса: что происходит с идеями?",sub:"",qs:[
+ {id:"q19",t:"Что стало с вашей разработкой после конкурса?",type:"one",opts:["Проект развивался, получил поддержку или внедрён в других организациях.","Проект используется в основном в моей организации.","После конкурса проект почти не развивался."]},
+ {id:"q20",t:"Что мешает проектам развиваться после конкурса?",type:"one",opts:["Нехватка финансирования и ресурсов.","Нет поддержки и механизмов внедрения.","Мало известности и заинтересованных партнёров."]},
+ {id:"q21",t:"Если ваш проект не победил, что было бы полезнее всего?",type:"one",opts:["Экспертная оценка и рекомендации по улучшению.","Представить идею потенциальным партнёрам.","Обучение или стажировка для развития проекта."]},
+ {id:"q22",t:"Хотели бы вы представить свою разработку коллегам из других регионов?",type:"one",opts:["Да, на очных мастер-классах в разных регионах.","Да, но онлайн: вебинары, мастер-классы, консультации.","Нет, предпочту развивать проект в своей организации."]},
+ {id:"q23",t:"Поддерживаете ли вы «Педагогические гастроли» — поездки финалистов и победителей с мастер-классами по регионам?",type:"one",opts:["Да, это поможет распространять лучшие практики по стране.","Скорее да, но важнее онлайн-доступ к мастер-классам.","Нет, полезнее длительное наставничество, чем разовые выступления."]},
+ {id:"q24",t:"Какие проекты коллег вы хотели бы внедрить у себя?",type:"multi",max:2,opts:["Технологические: ИИ, цифровые инструменты, инженерные разработки.","Методические: игры, проектное обучение, индивидуальные маршруты.","Социальные и воспитательные: профориентация, культура, инклюзия, здоровье."]}
+]},
+{short:"Будущее",eyebrow:"Блок 5 из 6",title:"Конкурсы будущего: ИИ, форматы и сообщество",sub:"",qs:[
+ {id:"q25",t:"Как вы относитесь к применению ИИ при подготовке конкурсных работ?",type:"one",opts:["Положительно: ИИ помогает с идеями, материалами и экономит время.","Допускаю ИИ для оформления, но содержание должно быть авторским.","Отрицательно: работа должна быть полностью самостоятельной."]},
+ {id:"q27",t:"Что вы изменили бы в конкурсах в первую очередь?",type:"one",opts:["Упростить подачу заявок и сократить нагрузку.","Сделать оценку работ прозрачнее и объективнее.","Поддерживать перспективные проекты после конкурса."]},
+ {id:"q28",t:"Какой формат конкурса вам интереснее?",type:"one",opts:["Состязание в мастерстве с заданиями и экспертной оценкой.","Конкурс авторских проектов с возможностью получить грант.","Фестиваль практик для обмена опытом и совместных проектов."]},
+ {id:"q30",t:"Какое направление развития сообщества СОТ важнее?",type:"one",opts:["Постоянная сеть участников, финалистов и экспертов разных лет.","Межрегиональные стажировки, поездки и авторские мастер-классы.","Совместные образовательные проекты и партнёрства."]},
+ {id:"q31",t:"Что важнее для образования: находить таланты или распространять лучшие практики?",type:"one",opts:["Поиск талантов и поддержка новых идей.","Распространение успешных разработок по всей стране.","Оба направления: находить таланты и внедрять их разработки."]}
+]},
+{short:"Ваши идеи",eyebrow:"Блок 6 из 6",title:"Истории, идеи и предложения",sub:"Поделитесь опытом и идеями для итоговой резолюции.",open:true,qs:[
+ {id:"o1",t:"Какое одно правило педагогических конкурсов вы бы изменили?",type:"text",note:"Свободный ответ. Одного предложения достаточно.",ph:"Например: сократить пакет документов до одной страницы"},
+ {id:"o2",t:"Расскажите запомнившуюся историю, связанную с конкурсом.",type:"text",tall:true,note:"Свободный ответ. Например: дружба, совместный проект, неожиданная возможность, поездка или открытие.",ph:"Как всё началось и чем закончилось?"},
+ {id:"o3",t:"Какой педагогический проект или практику стоит распространить по России? Почему?",type:"text",note:"Свободный ответ. Назовите проект и коротко скажите, чем он полезен.",ph:"Название проекта и чем он помог вам или коллегам"},
+ {id:"o4",t:"Что вы предложили бы включить в Открытую резолюцию Форума СОТ — 2026?",type:"text",note:"Свободный ответ. Даже одно предложение — ценный вклад.",ph:"Я предлагаю включить в резолюцию…"}
+]},
+{short:"О вас",eyebrow:"Последний шаг",title:"Информация об участнике",sub:"Можно пропустить любой пункт.",qs:[
+ {id:"p1",n:"1",p:true,t:"Ваше отношение к Форуму СОТ",type:"one",opts:["Участник, финалист или победитель конкурса СОТ.","Участник Форума СОТ (без участия в конкурсах).","Не участвовал(а) в СОТ."]},
+ {id:"p2",n:"2",p:true,t:"Ваша профессиональная деятельность",type:"one",opts:["Учитель школы.","Воспитатель детского сада.","Преподаватель колледжа или техникума.","Педагог дополнительного образования.","Руководитель или заместитель руководителя.","Методист.","Преподаватель вуза."],other:true},
+ {id:"p3",n:"3",p:true,t:"Ваш педагогический стаж",type:"one",opts:["Менее 3 лет.","От 3 до 10 лет.","От 11 до 20 лет.","Более 20 лет."]},
+ {id:"p4",n:"4",p:true,t:"Регион Российской Федерации",type:"select",opts:REGIONS,note:"Выбор из списка регионов."},
+ {id:"p5",n:"5",p:true,t:"ФИО",type:"short",note:"Необязательно."},
+ {id:"p6",n:"6",p:true,t:"Электронная почта",type:"email",note:"Необязательно. Для получения результатов опроса."}
+]}
+];
+var __n=0;BLOCKS.forEach(function(b){b.qs.forEach(function(q){if(!q.p){__n++;q.n=__n;}});});
+var CFG=window.SURVEY_CONFIG||{};
+var HINT={one:"Выберите один ответ",multi:"Можно выбрать до двух ответов",text:"Свободный ответ",select:"Выберите из списка",short:"Необязательно",email:"Необязательно"};
+var ALLQ=[],QBYID={},POS={},NQ=0;
+BLOCKS.forEach(function(b,bi){b.qs.forEach(function(q,qi){ALLQ.push(q);QBYID[q.id]=q;POS[q.id]={b:bi,i:qi};if(!q.p)NQ++;});});
+var LET="АБВГДЕЖЗИК";
+var DONE_MSG=["Дальше — про ваш личный опыт.","Опыт учтён. Теперь про престиж и мечты.","Мечтать разрешено. Теперь про судьбу проектов после конкурса.","Хорошие идеи не должны пропадать. Осталось заглянуть в будущее.","Почти у финиша. Дальше — ваши истории и предложения.","Самое ценное позади. Последний шаг — пара слов о вас."];
+
+var $=function(id){return document.getElementById(id);};
+var NAVEL=document.getElementById("nav"),BACK=document.getElementById("back"),NEXT=document.getElementById("next");
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function st(){try{return window.localStorage;}catch(e){return null;}}
+function reduce(){return !!(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches);}
+
+var A={},cur={b:0,i:0},mode="welcome",advT=null;
+var ctx={db:null,user:null,uid:null,canSubmit:null,admin:false,downloads:null};
+var RES=[],resUnsub=null,resErr=null;
+
+try{var s0=st();if(s0){var d0=JSON.parse(s0.getItem("sot2026b")||"null");
+  if(d0&&d0.A&&Object.keys(d0.A).length){A=d0.A;if(d0.cur&&BLOCKS[d0.cur.b]&&BLOCKS[d0.cur.b].qs[d0.cur.i])cur=d0.cur;mode="form";if(s0.getItem("sot2026bsent")==="1")mode="done";}}}catch(e){}
+var saveT=null;
+function saveDraft(){clearTimeout(saveT);saveT=setTimeout(function(){try{var s=st();if(s)s.setItem("sot2026b",JSON.stringify({A:A,cur:cur}));}catch(e){}},300);}
+
+function curQ(){return BLOCKS[cur.b].qs[cur.i];}
+function answered(q){var a=A[q.id];if(q.type==="one")return a!==undefined&&a!==null;if(q.type==="multi")return Array.isArray(a)&&a.length>0;return typeof a==="string"&&a.trim()!=="";}
+function blockCount(b){var n=0;b.qs.forEach(function(q){if(answered(q))n++;});return n;}
+function firstOpen(bi){var qs=BLOCKS[bi].qs;for(var i=0;i<qs.length;i++){if(!answered(qs[i]))return i;}return 0;}
+function sels(q){var a=A[q.id];return q.type==="multi"?(Array.isArray(a)?a:[]):(a===undefined?[]:[a]);}
+
+/* ---------- chrome ---------- */
+function drawStepper(){
+  var h="";
+  BLOCKS.forEach(function(b,i){
+    var c=blockCount(b),tot=b.qs.length,done=c===tot;
+    var on=(mode==="form"||mode==="blockdone"||mode==="send")&&i===cur.b;
+    h+='<button type="button" class="chip'+(on?" on":"")+(done?" done":"")+'" data-step="'+i+'"'+(on?' aria-current="step"':'')+'><span class="n">'+(done?"✓":(i+1))+'</span><span class="c">'+c+'/'+tot+'</span><span class="t">'+esc(b.short)+'</span></button>';
+  });
+  $("stepper").innerHTML=h;
+}
+function drawProgress(){}
+function updateNav(){
+  if(mode!=="form")return;
+  var q=curQ(),last=cur.b===BLOCKS.length-1&&cur.i===BLOCKS[cur.b].qs.length-1;
+  BACK.style.visibility=(cur.b===0&&cur.i===0)?"hidden":"visible";
+  var auto=q.type==="one"&&!(q.other&&A[q.id]===q.opts.length);
+  NEXT.textContent=auto?(answered(q)?"Далее →":"Пропустить →"):"Дальше →";
+}
+function scrollTop(){try{window.scrollTo({top:0,behavior:reduce()?"auto":"smooth"});}catch(e){window.scrollTo(0,0);}}
+function confetti(){
+  if(reduce())return;var fx=$("fx"),cols=["#FFD23F","#FF4F1A","#15120A","#1F9D63","#FFFFFF","#FF8A3D"];fx.innerHTML="";
+  for(var k=0;k<48;k++){var s=document.createElement("i"),z=7+Math.random()*9;
+    s.style.left=(Math.random()*100)+"vw";s.style.background=cols[k%cols.length];s.style.width=z+"px";s.style.height=z+"px";
+    s.style.setProperty("--dx",(Math.random()*240-120)+"px");s.style.setProperty("--r",(Math.random()*900-450)+"deg");s.style.animationDelay=(Math.random()*.3)+"s";fx.appendChild(s);}
+  setTimeout(function(){fx.innerHTML="";},2400);
+}
+
+/* ---------- honeycomb picture ---------- */
+function hexPts(r){var p=[];for(var k=0;k<6;k++){var a=Math.PI/180*(60*k-90);p.push((r*Math.cos(a)).toFixed(1)+","+(r*Math.sin(a)).toFixed(1));}return p.join(" ");}
+function honeySVG(){
+  var IC='style="fill:none;stroke:var(--bd);stroke-width:3;stroke-linecap:round;stroke-linejoin:round"';
+  var cells=[
+   {x:0,y:0,f:"var(--pick)",i:'<text x="0" y="8" text-anchor="middle" style="font-family:var(--f-display);font-weight:700;font-size:22px;fill:var(--pick-ink)">СОТ</text>'},
+   {x:77,y:0,f:"var(--surface)",i:'<g '+IC+'><path d="M-18 -4 L0 -13 L18 -4 L0 5 Z"/><path d="M-10 1 V9 Q0 15 10 9 V1"/><path d="M18 -4 V9"/></g>'},
+   {x:38.5,y:66.7,f:"var(--soft)",i:'<g '+IC+'><circle cx="0" cy="-4" r="10"/><path d="M-5 9 H5 M-4 14 H4"/></g>'},
+   {x:-38.5,y:66.7,f:"var(--surface)",i:'<g '+IC+'><path d="M-16 -12 H16 Q20 -12 20 -8 V6 Q20 10 16 10 H0 L-8 17 V10 H-16 Q-20 10 -20 6 V-8 Q-20 -12 -16 -12 Z"/></g><circle cx="-8" cy="-1" r="2.3" style="fill:var(--bd)"/><circle cx="0" cy="-1" r="2.3" style="fill:var(--bd)"/><circle cx="8" cy="-1" r="2.3" style="fill:var(--bd)"/>'},
+   {x:-77,y:0,f:"var(--soft)",i:'<polygon points="0,-17 5,-6 17,-5 8,3 11,15 0,9 -11,15 -8,3 -17,-5 -5,-6" style="fill:var(--hot);stroke:var(--bd);stroke-width:3;stroke-linejoin:round"/>'},
+   {x:-38.5,y:-66.7,f:"var(--surface)",i:'<g '+IC+'><path d="M-17 -10 H-2 Q0 -10 0 -8 V12 Q0 10 -2 10 H-17 Z"/><path d="M17 -10 H2 Q0 -10 0 -8 V12 Q0 10 2 10 H17 Z"/></g>'},
+   {x:38.5,y:-66.7,f:"var(--soft)",i:'<path d="M-12 0 L-4 9 L13 -10" style="fill:none;stroke:var(--ok);stroke-width:6;stroke-linecap:round;stroke-linejoin:round"/>'}
+  ];
+  var pts=hexPts(42),s='<svg class="honey" viewBox="-125 -118 250 236" focusable="false">';
+  cells.forEach(function(c){s+='<polygon transform="translate('+(c.x+4)+' '+(c.y+4)+')" points="'+pts+'" style="fill:var(--sh)"/>';});
+  cells.forEach(function(c){s+='<g transform="translate('+c.x+' '+c.y+')"><polygon points="'+pts+'" style="fill:'+c.f+';stroke:var(--bd);stroke-width:3.5;stroke-linejoin:round"/>'+c.i+'</g>';});
+  s+='<g transform="translate(104 -100) rotate(12)"><g class="bee"><ellipse cx="-4" cy="-10" rx="6" ry="9" transform="rotate(-20 -4 -10)" style="fill:var(--surface);stroke:var(--bd);stroke-width:2.5"/><ellipse cx="6" cy="-11" rx="6" ry="9" transform="rotate(15 6 -11)" style="fill:var(--surface);stroke:var(--bd);stroke-width:2.5"/><ellipse cx="0" cy="0" rx="15" ry="10" style="fill:#FFD23F;stroke:var(--bd);stroke-width:2.5"/><path d="M-4 -9 V9 M5 -9.5 V9.5" style="fill:none;stroke:var(--bd);stroke-width:3"/><circle cx="-10" cy="-2" r="1.9" style="fill:var(--bd)"/><path d="M15 0 L21 0" style="fill:none;stroke:var(--bd);stroke-width:2.5;stroke-linecap:round"/></g></g>';
+  return s+'</svg>';
+}
+
+/* ---------- screens ---------- */
+function render(){
+  drawStepper();drawProgress();
+  NAVEL.hidden=mode!=="form";
+  if(mode==="form")drawQ(true);
+  else if(mode==="welcome")drawWelcome();
+  else if(mode==="blockdone")drawBlockDone();
+  else if(mode==="send")drawSend();
+  else if(mode==="done")drawDone();
+  else if(mode==="fail")drawFail();
+}
+function drawWelcome(){
+  $("main").innerHTML='<section class="card hero pop"><div class="hero-t"><span class="sticker">опрос педагогов</span><h2>Ответьте на вопросы</h2><p>Выберите вариант — откроется следующий вопрос. Любой вопрос можно пропускать.</p><button type="button" class="btn pri big" id="start">Поехали</button></div><div class="hero-art" aria-hidden="true">'+honeySVG()+'</div></section>';
+  $("start").onclick=function(){mode="form";render();saveDraft();scrollTop();};
+}
+function qBody(q){
+  var a=A[q.id],body="";
+  if(q.type==="one"||q.type==="multi"){
+    var multi=q.type==="multi",sel=sels(q),full=multi&&sel.length>=q.max;
+    var opts=q.opts.slice();if(q.other)opts.push("Другое (укажите)");
+    body+='<div class="opts" role="'+(multi?"group":"radiogroup")+'" aria-labelledby="t-'+q.id+'">';
+    opts.forEach(function(o,i){
+      var on=sel.indexOf(i)>-1,off=multi&&full&&!on;
+      body+='<label class="opt'+(on?" sel":"")+(off?" off":"")+'"><input type="'+(multi?"checkbox":"radio")+'" name="'+q.id+'" value="'+i+'"'+(on?" checked":"")+(off?" disabled":"")+'><span class="mark"><b>'+LET.charAt(i)+'</b></span><span class="otxt">'+esc(o)+'</span></label>';
+    });
+    body+='</div>';
+    if(q.other)body+='<input type="text" class="other" data-o="'+q.id+'" placeholder="Напишите свой вариант" aria-label="Свой вариант" value="'+esc(A[q.id+"_o"]||"")+'"'+(sel.indexOf(q.opts.length)>-1?"":" hidden")+'>';
+  }else if(q.type==="text"){
+    body='<textarea data-t="'+q.id+'" rows="'+(q.tall?7:5)+'" aria-labelledby="t-'+q.id+'" placeholder="'+esc(q.ph||"Ваш ответ")+'">'+esc(a||"")+'</textarea>';
+  }else if(q.type==="select"){
+    body='<select data-t="'+q.id+'" aria-labelledby="t-'+q.id+'"><option value="">Выберите регион</option>'+q.opts.map(function(r){return '<option'+(a===r?" selected":"")+'>'+esc(r)+'</option>';}).join("")+'</select>';
+  }else{
+    body='<input type="'+(q.type==="email"?"email":"text")+'" data-t="'+q.id+'" aria-labelledby="t-'+q.id+'" value="'+esc(a||"")+'" placeholder="'+(q.type==="email"?"name@example.ru":"Иван Иванович Иванов")+'" autocomplete="'+(q.type==="email"?"email":"name")+'">';
+  }
+  return body;
+}
+function drawQ(anim){
+  var b=BLOCKS[cur.b],q=curQ();
+  var dots=b.qs.map(function(x,i){return '<button type="button" class="dot'+(i===cur.i?" on":(answered(x)?" ok":""))+'" data-dot="'+i+'" aria-label="Вопрос '+(i+1)+' из '+b.qs.length+' в этом блоке"></button>';}).join("");
+  var label=q.p?"О вас · "+q.n+" из "+b.qs.length:(b.open?"Своими словами":"Вопрос "+(cur.i+1)+" из "+b.qs.length);
+  var head=(cur.i===0)?'<p class="muted" style="margin:0 0 12px"><b>'+esc(b.title)+'</b>'+(b.sub?" "+esc(b.sub):"")+'</p>':"";
+  var hint=q.note||HINT[q.type];
+  $("main").innerHTML='<div class="meta"><span class="sticker">'+esc(label)+'</span><span class="blk">'+esc(b.short)+'</span></div>'+head+'<div class="dots">'+dots+'</div><article class="card'+(anim&&!reduce()?" pop":"")+'" data-q="'+q.id+'"><h2 class="qt" id="t-'+q.id+'">'+esc(q.t)+'</h2><p class="hint">'+esc(hint)+'</p>'+qBody(q)+'</article>';
+  $("main").appendChild(NAVEL);NAVEL.hidden=false;updateNav();
+}
+function syncCard(q){
+  var card=$("main").querySelector(".card");if(!card)return;
+  var sel=sels(q),multi=q.type==="multi",full=multi&&sel.length>=q.max,labels=card.querySelectorAll(".opt");
+  for(var k=0;k<labels.length;k++){var inp=labels[k].querySelector("input"),v=parseInt(inp.value,10),on=sel.indexOf(v)>-1,off=multi&&full&&!on;
+    labels[k].classList.toggle("sel",on);labels[k].classList.toggle("off",off);inp.checked=on;inp.disabled=off;}
+  var o=card.querySelector(".other");if(o)o.hidden=sel.indexOf(q.opts.length)<0;
+}
+function pathSVG(){
+  var bi=cur.b,pts=hexPts(22);
+  var CH=function(c){return '<path d="M-7 0 L-2 6 L8 -6" style="fill:none;stroke:'+c+';stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round"/>';};
+  var s='<svg class="pathsvg" viewBox="-26 -36 292 66" focusable="false" aria-hidden="true">';
+  for(var i=0;i<BLOCKS.length;i++){
+    var fill="var(--soft)",cls="",inner="",op=.55,dl=0;
+    if(i<bi){fill="var(--pick)";cls="hx-pop";inner=CH("var(--bd)");op=1;dl=i*70;}
+    else if(i===bi){fill="var(--ok)";cls="hx-pop";inner=CH("var(--surface)");op=1;dl=bi*70+160;}
+    else if(i===bi+1){fill="var(--surface)";cls="hx-pulse";op=1;}
+    s+='<g transform="translate('+(i*40)+' 0)" opacity="'+op+'"><g class="'+cls+'" style="animation-delay:'+dl+'ms"><polygon transform="translate(2.5 2.5)" points="'+pts+'" style="fill:var(--sh)"/><polygon points="'+pts+'" style="fill:'+fill+';stroke:var(--bd);stroke-width:2.5;stroke-linejoin:round"/>'+inner+'</g></g>';
+  }
+  s+='<g transform="translate('+(bi*40)+' -22) scale(.55)"><g class="beefly"><ellipse cx="-4" cy="-10" rx="6" ry="9" transform="rotate(-20 -4 -10)" style="fill:var(--surface);stroke:var(--bd);stroke-width:2.5"/><ellipse cx="6" cy="-11" rx="6" ry="9" transform="rotate(15 6 -11)" style="fill:var(--surface);stroke:var(--bd);stroke-width:2.5"/><ellipse cx="0" cy="0" rx="15" ry="10" style="fill:#FFD23F;stroke:var(--bd);stroke-width:2.5"/><path d="M-4 -9 V9 M5 -9.5 V9.5" style="fill:none;stroke:var(--bd);stroke-width:3"/><circle cx="-10" cy="-2" r="1.9" style="fill:var(--bd)"/></g></g>';
+  return s+'</svg>';
+}
+function drawBlockDone(){
+  var b=BLOCKS[cur.b],c=blockCount(b),tot=b.qs.length,nb=BLOCKS[cur.b+1];
+  $("main").innerHTML='<section class="card fin pop"><span class="sticker">Блок пройден</span><div class="path">'+pathSVG()+'</div><p class="dl">Дальше</p><h2 style="margin-top:0">'+esc(nb.title)+'</h2>'+(nb.sub?'<p class="muted" style="margin:0">'+esc(nb.sub)+'</p>':'')+'<div class="actions"><button type="button" class="btn" id="bk">← Назад</button>'+(c<tot?'<button type="button" class="btn" id="miss">Вернуться к пропущенным</button>':'')+'<button type="button" class="btn pri big" id="cont">Дальше →</button></div></section>';
+  $("cont").onclick=function(){cur={b:cur.b+1,i:0};mode="form";render();saveDraft();scrollTop();};
+  var m=$("miss");if(m)m.onclick=function(){cur.i=firstOpen(cur.b);mode="form";render();saveDraft();scrollTop();};
+  $("bk").onclick=function(){cur.i=BLOCKS[cur.b].qs.length-1;mode="form";render();saveDraft();scrollTop();};
+}
+
+/* ---------- navigation ---------- */
+function nextQ(){
+  clearTimeout(advT);
+  var b=BLOCKS[cur.b];
+  if(cur.i<b.qs.length-1){cur.i++;drawQ(true);scrollTop();}
+  else if(cur.b<BLOCKS.length-1){mode="blockdone";render();confetti();scrollTop();}
+  else{mode="send";render();scrollTop();saveDraft();return;}
+  saveDraft();
+}
+function prevQ(){
+  clearTimeout(advT);
+  if(cur.i>0)cur.i--;else if(cur.b>0){cur.b--;cur.i=BLOCKS[cur.b].qs.length-1;}else return;
+  drawStepper();drawQ(true);scrollTop();saveDraft();
+}
+function openBlock(bi){clearTimeout(advT);cur={b:bi,i:firstOpen(bi)};mode="form";render();saveDraft();scrollTop();}
+BACK.addEventListener("click",prevQ);
+NEXT.addEventListener("click",nextQ);
+$("stepper").addEventListener("click",function(e){var b=e.target.closest("[data-step]");if(!b)return;var v=b.getAttribute("data-step");openBlock(parseInt(v,10));});
+
+/* ---------- answering ---------- */
+$("main").addEventListener("click",function(e){
+  var d=e.target.closest&&e.target.closest("[data-dot]");
+  if(d&&mode==="form"){clearTimeout(advT);cur.i=parseInt(d.getAttribute("data-dot"),10);drawQ(true);saveDraft();}
+});
+$("main").addEventListener("change",function(e){
+  if(mode!=="form")return;
+  var t=e.target,q=curQ();
+  if(t.matches("input[type=radio],input[type=checkbox]")){
+    var v=parseInt(t.value,10),isOther=!!q.other&&v===q.opts.length;
+    if(q.type==="one"){A[q.id]=v;if(!isOther)delete A[q.id+"_o"];}
+    else{var arr=(A[q.id]||[]).slice(),ix=arr.indexOf(v);
+      if(t.checked&&ix<0){if(arr.length>=q.max){t.checked=false;return;}arr.push(v);}
+      if(!t.checked&&ix>-1){arr.splice(ix,1);if(isOther)delete A[q.id+"_o"];}
+      A[q.id]=arr;}
+    syncCard(q);drawStepper();drawProgress();updateNav();saveDraft();
+    var o=$("main").querySelector(".other");
+    if(isOther&&o&&!o.hidden){o.focus();return;}
+    if(q.type==="one"){clearTimeout(advT);var tok=cur.b+":"+cur.i;advT=setTimeout(function(){if(mode==="form"&&cur.b+":"+cur.i===tok)nextQ();},480);}
+  }else if(t.matches("select[data-t]")){
+    if(t.value)A[q.id]=t.value;else delete A[q.id];
+    drawStepper();drawProgress();updateNav();saveDraft();
+  }
+});
+$("main").addEventListener("input",function(e){
+  if(mode!=="form")return;
+  var t=e.target,q=curQ();
+  if(t.hasAttribute("data-t")&&t.tagName!=="SELECT"){
+    if(t.value.trim())A[q.id]=t.value;else delete A[q.id];
+    drawStepper();drawProgress();updateNav();saveDraft();
+  }else if(t.hasAttribute("data-o")){
+    if(t.value.trim())A[q.id+"_o"]=t.value;else delete A[q.id+"_o"];saveDraft();
+  }
+});
+document.addEventListener("keydown",function(e){
+  if(mode!=="form"||e.ctrlKey||e.metaKey||e.altKey)return;
+  var tg=e.target&&e.target.tagName,ty=e.target&&e.target.type;
+  if(tg==="TEXTAREA"||tg==="SELECT"||(tg==="INPUT"&&ty!=="radio"&&ty!=="checkbox"))return;
+  var q=curQ();
+  if((q.type==="one"||q.type==="multi")&&/^[1-9]$/.test(e.key)){
+    var inp=$("main").querySelector('input[value="'+(parseInt(e.key,10)-1)+'"]');
+    if(inp&&!inp.disabled){inp.click();e.preventDefault();}
+  }
+});
+
+/* ---------- submit ---------- */
+function labelOf(q,a,other){
+  var opts=q.opts?q.opts.slice():[];if(q.other)opts.push("Другое");
+  if(q.type==="one"){return a===undefined?"":(opts[a]||"")+((q.other&&a===q.opts.length&&other)?": "+other:"");}
+  if(q.type==="multi"){return (a||[]).map(function(i){return (opts[i]||"")+((q.other&&i===q.opts.length&&other)?": "+other:"");}).join("; ");}
+  return a||"";
+}
+function plainAnswers(){
+  var out=["Опрос Форума СОТ — 2026. Мои ответы",""];
+  BLOCKS.forEach(function(b){out.push("== "+b.title+" ==");b.qs.forEach(function(q){out.push((q.p?"О вас, "+q.n:q.n)+". "+q.t);out.push("   → "+(labelOf(q,A[q.id],A[q.id+"_o"])||"—"));});out.push("");});
+  return out.join("\n");
+}
+function clientId(){var k="sot2026id",v=null;try{v=localStorage.getItem(k);}catch(e){}if(!v){v=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2);try{localStorage.setItem(k,v);}catch(e){}}return v;}
+function flatAnswers(){var f={};ALLQ.forEach(function(q){var key=(q.p?"О вас "+q.n:"№"+q.n)+". "+q.t,v=labelOf(q,A[q.id],A[q.id+"_o"]);if(v)f[key]=v;});return f;}
+async function submit(btn){
+  btn=btn||$("sgo");btn.disabled=true;btn.textContent="Отправляю…";
+  var ok=false;
+  try{
+    if(!CFG.endpoint)throw new Error("no endpoint");
+    var res=await fetch(CFG.endpoint,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({id:clientId(),answers:A,flat:flatAnswers()})});
+    var j=await res.json();
+    if(!j||!j.ok)throw new Error("bad response");
+    try{var s=st();if(s){s.setItem("sot2026bsent","1");s.setItem("sot2026b",JSON.stringify({A:A,cur:cur}));}}catch(e){}
+    ok=true;
+  }catch(e){ok=false;}
+  btn.disabled=false;mode=ok?"done":"fail";render();scrollTop();if(ok)confetti();
+}
+function drawSend(){
+  var n=0;ALLQ.forEach(function(q){if(answered(q))n++;});
+  $("main").innerHTML='<section class="card fin pop"><span class="sticker">Последний шаг</span><div class="bigmark">'+n+'/'+ALLQ.length+'</div><h2>Всё готово. Отправляем?</h2><p class="muted">Вы ответили на '+n+' из '+ALLQ.length+' вопросов. Любой блок можно открыть сверху и дополнить.</p><div class="actions"><button type="button" class="btn" id="sback">← Назад</button><button type="button" class="btn pri big" id="sgo">Отправить ответы</button></div></section>';
+  $("sback").onclick=function(){cur={b:BLOCKS.length-1,i:BLOCKS[BLOCKS.length-1].qs.length-1};mode="form";render();scrollTop();};
+  $("sgo").onclick=function(){submit($("sgo"));};
+}
+function drawDone(){
+  $("main").innerHTML='<section class="card fin pop"><span class="sticker">Готово</span><div class="bigmark">✓</div><h2>Благодарим вас за участие!</h2><p>Ваши ответы помогут улучшить педагогические конкурсы и поддержку образовательных инициатив.</p><div class="actions"><button type="button" class="btn" id="edit">Изменить ответы</button></div></section>';
+  $("edit").onclick=function(){try{var s=st();if(s)s.removeItem("sot2026bsent");}catch(e){}cur={b:0,i:0};mode="form";render();saveDraft();scrollTop();};
+}
+function drawFail(){
+  $("main").innerHTML='<section class="card fin pop"><span class="sticker">Не отправлено</span><h2>Не получилось отправить опрос</h2><p>Не удалось связаться с сервером. Ваши ответы не потеряны: попробуйте ещё раз или скопируйте их и перешлите организатору опроса.</p><div class="actions"><button type="button" class="btn pri" id="copy">Скопировать мои ответы</button><button type="button" class="btn" id="retry">Попробовать ещё раз</button><button type="button" class="btn" id="tofrm">К вопросам</button></div><p class="muted" id="cmsg" role="status"></p><textarea id="plain" rows="8" readonly aria-label="Текст ответов"></textarea></section>';
+  var ta=$("plain");ta.value=plainAnswers();
+  $("copy").onclick=function(){var fin=function(ok){$("cmsg").textContent=ok?"Скопировано. Вставьте текст в сообщение организатору.":"Не удалось скопировать автоматически: выделите текст ниже и скопируйте вручную.";if(!ok){ta.focus();ta.select();}};
+    try{navigator.clipboard.writeText(ta.value).then(function(){fin(true);},function(){fin(false);});}catch(e){fin(false);}};
+  $("retry").onclick=function(){submit($("retry"));};
+  $("tofrm").onclick=function(){cur={b:BLOCKS.length-1,i:BLOCKS[BLOCKS.length-1].qs.length-1};mode="form";render();scrollTop();};
+}
+
+/* ---------- restart ---------- */
+var resetT=null;
+$("reset").addEventListener("click",function(){
+  var bt=$("reset");
+  if(bt.getAttribute("data-arm")!=="1"){
+    bt.setAttribute("data-arm","1");bt.textContent="Сбросить все ответы? Нажмите ещё раз";
+    clearTimeout(resetT);resetT=setTimeout(function(){bt.removeAttribute("data-arm");bt.textContent="Начать сначала";},4000);return;
+  }
+  clearTimeout(resetT);bt.removeAttribute("data-arm");bt.textContent="Начать сначала";
+  clearTimeout(advT);clearTimeout(saveT);A={};cur={b:0,i:0};mode="welcome";
+  try{var s=st();if(s){s.removeItem("sot2026b");s.removeItem("sot2026bsent");}}catch(e){}
+  render();scrollTop();
+});
+
+/* ---------- init ---------- */
+render();
+if(!CFG.endpoint){var bn=$("banner");bn.textContent="Отправка ответов ещё не настроена: в config.js не указан адрес сервера.";bn.hidden=false;}
+})();
+</script>
+</body>
+</html>
